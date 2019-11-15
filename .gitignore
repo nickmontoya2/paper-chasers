@@ -1,5 +1,6 @@
 .DS_store
 ### Eclipse ###
+target/
 .metadata
 bin/
 tmp/
