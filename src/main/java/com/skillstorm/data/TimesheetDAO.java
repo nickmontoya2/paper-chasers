@@ -1,7 +1,7 @@
 package com.skillstorm.data;
 
 public class TimesheetDAO {
-	
+	/**
 	// Will need a User class
 	public User findbyUsername(String username) {};
 	
@@ -16,5 +16,5 @@ public class TimesheetDAO {
 	
 	// To change the timesheet status from saved to submitted
 	public Timesheet update(Timesheet t) {};
-	
+	**/
 }
