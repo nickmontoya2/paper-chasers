@@ -43,11 +43,11 @@ CREATE TABLE `Timesheet`
     `user_ID` INT NOT NULL,
     -- status will be a foreign key to status table showing whether TS is saved or submitted
     `status_ID` INT NOT NULL,
-    `monday_hours` DECIMAL(2,2) NOT NULL,
-    `tuesday_hours` DECIMAL(2,2) NOT NULL,
-    `wednesday_hours` DECIMAL(2,2) NOT NULL,
-    `thursday_hours` DECIMAL(2,2) NOT NULL,
-    `friday_hours` DECIMAL(2,2) NOT NULL,
+    `monday_hours` DECIMAL(4,2) NOT NULL,
+    `tuesday_hours` DECIMAL(4,2) NOT NULL,
+    `wednesday_hours` DECIMAL(4,2) NOT NULL,
+    `thursday_hours` DECIMAL(4,2) NOT NULL,
+    `friday_hours` DECIMAL(4,2) NOT NULL,
     `week_ending` DATE NOT NULL,
     CONSTRAINT `PK_Timesheet` PRIMARY KEY (`ID`)
 );
@@ -106,3 +106,11 @@ INSERT INTO `User`(`first_name`, `last_name`, `username`, `password`, `role_ID`)
 	VALUES (N'Randy', N'Marsh', N'Cool_Marsh', N'southPark5', 1);
 
 -- Populate Timesheet table (a sample saved & submitted)
+
+INSERT INTO `Timesheet`(`user_ID`, `status_ID`, `monday_hours`, `tuesday_hours`, `wednesday_hours`, `thursday_hours`, `friday_hours`, `week_ending`)
+	VALUES (1, 1, 7.5, 8.50, 8, 8, 8, '2019-10-27'); -- Sample saved timesheet for Stan
+    
+INSERT INTO `Timesheet`(`user_ID`, `status_ID`, `monday_hours`, `tuesday_hours`, `wednesday_hours`, `thursday_hours`, `friday_hours`, `week_ending`)
+	VALUES (1, 2, 7.5, 8.50, 8, 8, 8, '2019-10-20'); -- Sample submitted timesheet for Stan
+    
+

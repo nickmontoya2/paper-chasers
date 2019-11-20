@@ -39,17 +39,29 @@ public class LoginController {
 		// Make call to UserService to implement login check
 		// if username & password match database user allow login
 		// else tell user that login failed
+		User user = null;
 		
 		response.setContentType("application/json");
 		if (request.getParameter("username") != null && request.getParameter("password") != null) {
-			User user = userService.login(request.getParameter("username"), request.getParameter("password"));
+			user = userService.login(request.getParameter("username"), request.getParameter("password"));
 			response.getWriter().println(new ObjectMapper().writeValueAsString(user));
-			System.out.println("Users name is: " + user.getFirst_name() + " " + user.getLast_name());
-			// Should end up redirecting to other HTML page
-			// where all timesheets for this user will show up 
-			// with options to edit (update), create new (insert), or submit (alter status)
+			System.out.println("Users name is: " + user.getFirst_name() + " " + user.getLast_name());			
+		} // end if
+		// Should end up redirecting to other HTML page
+		// where all timesheets for this user will show up 
+		// with options to edit (update), create new (insert), or submit (alter status)
+
+		if (user != null) {
+			// Create a session to store user_ID 
+			System.out.println(request.getSession().getAttribute("user_ID"));
+			request.getSession().setAttribute("user_ID", user.getUser_id());
+			System.out.println(request.getSession().getAttribute("user_ID"));
+			// redirect to timesheetPortal.html
+			response.sendRedirect("/paper-chasers/timesheetPortal.html");
+			
+		} else {
+			// user didn't exist, tell user that login info was wrong
 		}
-		
 		
 	}
 	
