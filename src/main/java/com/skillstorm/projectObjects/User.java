@@ -14,6 +14,12 @@ public class User {
 		super();
 	}
 	
+	public User(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+	
 	public User(int user_id, String first_name, String last_name, String username, String password, int role_id) {
 		super();
 		this.user_id = user_id;
@@ -62,8 +68,10 @@ public class User {
 		this.role_id = role_id;
 	}
 	
+	// Extra methods
+	@Override
+	public String toString() {
+		return "User [first_name=" + first_name + ", last_name=" + last_name + "]";
+	}
 	
-	
-	
-
 }

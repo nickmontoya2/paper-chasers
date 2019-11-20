@@ -15,7 +15,7 @@ public class FrontController extends HttpServlet {
 		
 		switch(req.getRequestURI()) {
 		case "":
-			System.out.println("Made it to login case");
+			System.out.println("");
 			break;
 		default:
 			break;
@@ -30,7 +30,7 @@ public class FrontController extends HttpServlet {
 		case "/paper-chasers/api/login":
 			System.out.println("Login Route");
 			// call login controller
-			resp.sendRedirect("/paper-chasers/timesheetPortal.html");
+			new LoginController(req, resp).userLogin();
 			break;
 		default:
 			break;

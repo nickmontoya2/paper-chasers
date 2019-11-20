@@ -12,7 +12,7 @@ public class ConnectionFactory {
 		// return a connection here
 		return DriverManager.getConnection("jdbc:mysql://localhost:3306/paper_chasers", "root", ""); // No password on DB right now
 	}
-	
+	/*
 	public static void main(String[] args) throws SQLException {
 		// testing if connection works
 		int id = 1;
@@ -24,4 +24,5 @@ public class ConnectionFactory {
 		System.out.println("First user is " + results.getNString("first_name") + " " + results.getNString("last_name"));
 		conn.close();
 	}
+	*/
 }
