@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function(){
         console.log(response.data)
         
     }) // End promise.catch callback
+
 }) // End DOMContentLoaded
 
 // Make form when user clicks button to add new timesheet
@@ -99,6 +100,14 @@ function appendTimesheet(timesheet) {
     let status = document.createElement('td')
     if (timesheet.status == 1) {
         status.innerText = "Saved"
+        // Add buttons for edit, delete, submit here
+        let editButton = document.createElement('input')
+        editButton.setAttribute('type', "button")
+        editButton.setAttribute('class', "editButton")
+        editButton.setAttribute('value', timesheet.timesheet_ID)
+        editButton.setAttribute('onclick', "getTimesheetID(this)")
+        editButton.innerText = "Edit"
+        status.appendChild(editButton)
     } else if (timesheet.status == 2) {
         status.innerText = "Submitted"
     }
@@ -114,4 +123,8 @@ function appendTimesheet(timesheet) {
     tr.appendChild(status);
     // Append the new row into the table
     document.getElementById('timesheets').appendChild(tr)
+}
+
+function getTimesheetID(editButton){
+    console.log(editButton.value)
 }
