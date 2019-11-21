@@ -111,6 +111,5 @@ INSERT INTO `Timesheet`(`user_ID`, `status_ID`, `monday_hours`, `tuesday_hours`,
 	VALUES (1, 1, 7.5, 8.50, 8, 8, 8, '2019-10-27'); -- Sample saved timesheet for Stan
     
 INSERT INTO `Timesheet`(`user_ID`, `status_ID`, `monday_hours`, `tuesday_hours`, `wednesday_hours`, `thursday_hours`, `friday_hours`, `week_ending`)
-	VALUES (1, 2, 7.5, 8.50, 8, 8, 8, '2019-10-20'); -- Sample submitted timesheet for Stan
+	VALUES (1, 2, 7, 8, 7, 9, 9, '2019-10-20'); -- Sample submitted timesheet for Stan
     
-

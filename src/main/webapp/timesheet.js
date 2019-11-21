@@ -93,9 +93,16 @@ function appendTimesheet(timesheet) {
     thursday.innerText = timesheet.thursday_hours
     let friday = document.createElement('td')
     friday.innerText = timesheet.friday_hours
+    let week_ending = document.createElement('td')
+    week_ending.innerText = timesheet.week_ending
     // check value of status and switch to either 'saved' or 'submitted'
     let status = document.createElement('td')
-    status.innerText = timesheet.status
+    if (timesheet.status == 1) {
+        status.innerText = "Saved"
+    } else if (timesheet.status == 2) {
+        status.innerText = "Submitted"
+    }
+
     // Append everything into the new row
     tr.appendChild(id);
     tr.appendChild(monday);
@@ -103,6 +110,7 @@ function appendTimesheet(timesheet) {
     tr.appendChild(wednesday);
     tr.appendChild(thursday);
     tr.appendChild(friday);
+    tr.appendChild(week_ending);
     tr.appendChild(status);
     // Append the new row into the table
     document.getElementById('timesheets').appendChild(tr)
