@@ -101,7 +101,7 @@ function appendTimesheet(timesheet) {
     if (timesheet.status == 1) {
         status.innerText = "Saved"
         // Add buttons for edit, delete, submit here
-        let editButton = document.createElement('input')
+        let editButton = document.createElement('button')
         editButton.setAttribute('type', "button")
         editButton.setAttribute('class', "editButton")
         editButton.setAttribute('value', timesheet.timesheet_ID)
