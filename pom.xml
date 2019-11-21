@@ -50,7 +50,7 @@
 			</plugin>
 			<!-- Tomcat Maven Plugin
 				Maven goal (build lifecycle phase: compile, test, package, install, deploy)
-				clean tomcat7:deploy  <--- this would be the new goal instead of clean package & it goes to install in lifecycle 
+				clean tomcat7:deploy   (this would be the new goal instead of clean package & it goes to install in lifecycle) 
 			  -->
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
