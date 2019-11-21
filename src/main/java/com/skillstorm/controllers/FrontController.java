@@ -33,6 +33,10 @@ public class FrontController extends HttpServlet {
 			// call login controller
 			new LoginController(req, resp).userLogin();
 			break;
+		case "/paper-chasers/api/saveTimesheet":
+			System.out.println("Save timesheet route");
+			new TimesheetController(req, resp).saveTimesheet();
+			break;
 		default:
 			break;
 		} // switch

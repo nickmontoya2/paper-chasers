@@ -46,7 +46,7 @@ document.getElementById('newTimesheetButton').addEventListener('click', function
     fHours.setAttribute('value', "Friday Hours")
     let weekEnding = document.createElement("input")
     weekEnding.setAttribute('type', "text")
-    weekEnding.setAttribute('name', "Week Ending Date")
+    weekEnding.setAttribute('name', "week_ending")
     weekEnding.setAttribute('value', "Week Ending Date")
     let submit = document.createElement('input')
     submit.setAttribute('type', "submit")
@@ -62,8 +62,6 @@ document.getElementById('newTimesheetButton').addEventListener('click', function
     // Add whole form to div
     document.getElementById('newForms').appendChild(newForm)
 }) // End newTimesheetButton click event
-
-
 
 
 /* 

@@ -27,7 +27,7 @@ public class TimesheetDAO {
 			// Add all timesheets back to list
 			while(rs.next()) {
 				Timesheet ts = new Timesheet(rs.getInt("ID"),
-						rs.getInt("user_ID"), rs.getString("status_ID"), rs.getFloat("monday_hours"),
+						rs.getInt("user_ID"), Integer.parseInt(rs.getString("status_ID")), rs.getFloat("monday_hours"),
 						rs.getFloat("tuesday_hours"), rs.getFloat("wednesday_hours"),
 						rs.getFloat("thursday_hours"), rs.getFloat("friday_hours"),
 						rs.getString("week_ending"));
@@ -51,7 +51,12 @@ public class TimesheetDAO {
 	//public Timesheet findTimesheetById(int id) {};
 	
 	// To save a timesheet 
-	//public Timesheet save(Timesheet t) {};
+	public Timesheet save(Timesheet t) {
+		new ConnectionFactory();
+		Connection conn = ConnectionFactory.getConnection();
+		
+		return t;
+	}; // End save()
 	
 	// To change the timesheet status from saved to submitted
 	//public Timesheet update(Timesheet t) {};

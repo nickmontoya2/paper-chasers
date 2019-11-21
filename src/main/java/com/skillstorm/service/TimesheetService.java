@@ -14,4 +14,9 @@ public class TimesheetService {
 		// return all timesheets for a user
 		return timesheetDAO.findTimesheetsByUserID(user_ID);
 	}
+	
+	public Timesheet saveNewTimesheet(Timesheet timesheet) {
+		timesheetDAO.save(timesheet);
+		return timesheet;
+	}
 }

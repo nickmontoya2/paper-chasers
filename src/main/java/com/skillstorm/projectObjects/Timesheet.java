@@ -4,7 +4,7 @@ public class Timesheet {
 	
 	private int timesheet_ID;
 	private int user_ID;
-	private String status;
+	private int status_ID;
 	private float monday_hours;
 	private float tuesday_hours;
 	private float wednesday_hours;
@@ -17,12 +17,12 @@ public class Timesheet {
 		super();
 	}
 
-	public Timesheet(int timesheet_ID, int user_ID, String status, float monday_hours, float tuesday_hours,
+	public Timesheet(int timesheet_ID, int user_ID, int status_ID, float monday_hours, float tuesday_hours,
 			float wednesday_hours, float thursday_hours, float friday_hours, String week_ending) {
 		super();
 		this.timesheet_ID = timesheet_ID;
 		this.user_ID = user_ID;
-		this.status = status;
+		this.status_ID = status_ID;
 		this.monday_hours = monday_hours;
 		this.tuesday_hours = tuesday_hours;
 		this.wednesday_hours = wednesday_hours;
@@ -48,12 +48,12 @@ public class Timesheet {
 		this.user_ID = user_ID;
 	}
 
-	public String getStatus() {
-		return status;
+	public int getStatus() {
+		return status_ID;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(int status_ID) {
+		this.status_ID = status_ID;
 	}
 
 	public float getMonday_hours() {
@@ -107,7 +107,7 @@ public class Timesheet {
 	// Extra methods
 	@Override
 	public String toString() {
-		return "Timesheet [timesheet_ID=" + timesheet_ID + ", user_ID=" + user_ID + ", status=" + status
+		return "Timesheet [timesheet_ID=" + timesheet_ID + ", user_ID=" + user_ID + ", status_ID=" + status_ID
 				+ ", week_ending=" + week_ending + "]";
 	}	
 
