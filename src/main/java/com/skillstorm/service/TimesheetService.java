@@ -16,7 +16,6 @@ public class TimesheetService {
 	}
 	
 	public Timesheet saveNewTimesheet(Timesheet timesheet) {
-		timesheetDAO.save(timesheet);
-		return timesheet;
+		return timesheetDAO.save(timesheet);
 	}
 }

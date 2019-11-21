@@ -42,9 +42,11 @@ public class TimesheetController {
 	}
 	
 	// Save timesheet from api call
-	public void saveTimesheet() { 
+	public void saveTimesheet() throws IOException { 
 		int user_ID = getUserId();
 		int saved = 1;
+		Timesheet newTimesheet = null;
+		response.setContentType("application/json");
 		// get parameters from request
 		Float mHours = Float.parseFloat(request.getParameter("monday_hours"));
 		Float tHours = Float.parseFloat(request.getParameter("tuesday_hours"));
@@ -56,11 +58,20 @@ public class TimesheetController {
 		if (mHours!=null && tHours!=null && wHours!=null && rHours!=null && fHours!=null && weekEnding!=null) {
 			// create new Timesheet & pass to service. default timesheet_ID, will overwrite after
 			// auto-increment value returns from database
-			Timesheet newTimesheet = new Timesheet(0, user_ID, saved, mHours, tHours, wHours, 
+			newTimesheet = new Timesheet(0, user_ID, saved, mHours, tHours, wHours, 
 					rHours, fHours, weekEnding);
 			// pass to service
-			timesheetService.saveNewTimesheet(newTimesheet);
+			newTimesheet = timesheetService.saveNewTimesheet(newTimesheet);
+			response.getWriter().println(new ObjectMapper().writeValueAsString(newTimesheet));
 		} // End if
+		
+		if (newTimesheet != null) {
+			// got assigned values 
+			response.sendRedirect("/paper-chasers/timesheetPortal.html");
+		} else {
+			// the values failed gg man
+		}
+		
 	} // end saveTimesheet()
 	
 	

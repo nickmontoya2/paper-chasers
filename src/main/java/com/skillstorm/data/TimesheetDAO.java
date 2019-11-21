@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -54,6 +55,37 @@ public class TimesheetDAO {
 	public Timesheet save(Timesheet t) {
 		new ConnectionFactory();
 		Connection conn = ConnectionFactory.getConnection();
+		
+		try {
+			String sql = "insert into Timesheet(user_ID, status_ID, monday_hours, tuesday_hours, "
+					+ "wednesday_hours, thursday_hours, friday_hours, week_ending) "
+					+ "values(?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, t.getUser_ID());
+			stmt.setInt(2, t.getStatus());
+			stmt.setFloat(3, t.getMonday_hours());
+			stmt.setFloat(4, t.getTuesday_hours());
+			stmt.setFloat(5, t.getWednesday_hours());
+			stmt.setFloat(6, t.getThursday_hours());
+			stmt.setFloat(7, t.getFriday_hours());
+			stmt.setString(8, t.getWeek_ending());
+			
+			stmt.executeUpdate();
+			ResultSet keys = stmt.getGeneratedKeys();
+			keys.next();
+			// Update ID to be the auto-incremented number from database
+			//System.out.println(keys.getInt(1));
+			t.setTimesheet_ID(keys.getInt(1));
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
 		
 		return t;
 	}; // End save()
