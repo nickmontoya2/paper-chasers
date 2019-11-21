@@ -44,8 +44,7 @@ public class LoginController {
 		response.setContentType("application/json");
 		if (request.getParameter("username") != null && request.getParameter("password") != null) {
 			user = userService.login(request.getParameter("username"), request.getParameter("password"));
-			response.getWriter().println(new ObjectMapper().writeValueAsString(user));
-			System.out.println("Users name is: " + user.getFirst_name() + " " + user.getLast_name());			
+			response.getWriter().println(new ObjectMapper().writeValueAsString(user));			
 		} // end if
 		// Should end up redirecting to other HTML page
 		// where all timesheets for this user will show up 

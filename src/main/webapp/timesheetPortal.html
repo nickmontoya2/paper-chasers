@@ -2,9 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>User Timesheets</title>
 </head>
-<body style="background-color: green">
+<body>
+    <h1>All Timesheets</h1>
+    <table id="timesheets">
+        <tr>
+            <th>ID</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Status</th> <!-- Might expand under this column to also show edit button & submit (if valid) -->
+        </tr>
 
+
+    </table>
 </body>
+
+<script src="timesheet.js"></script>
+<script src="https://unpkg.com/axios@0.19.0/dist/axios.min.js"></script>
+
 </html>

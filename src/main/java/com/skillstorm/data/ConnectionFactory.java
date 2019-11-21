@@ -8,10 +8,17 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 	
-	public static Connection newConnection() throws SQLException {
+	public static Connection getConnection() {
 		// return a connection here
-		return DriverManager.getConnection("jdbc:mysql://localhost:3306/paper_chasers", "root", ""); // No password on DB right now
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/paper_chasers", "root", "");
+			return conn;
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
+
 	/*
 	public static void main(String[] args) throws SQLException {
 		// testing if connection works

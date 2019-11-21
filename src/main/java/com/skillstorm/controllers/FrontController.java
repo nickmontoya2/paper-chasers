@@ -14,8 +14,9 @@ public class FrontController extends HttpServlet {
 		System.out.println("Front Controller received GET from URI: " + req.getRequestURI());
 		
 		switch(req.getRequestURI()) {
-		case "":
-			System.out.println("");
+		case "/paper-chasers/api/timesheets":
+			System.out.println("GET request for timesheets");
+			new TimesheetController(req, resp).getAllTimesheets();
 			break;
 		default:
 			break;

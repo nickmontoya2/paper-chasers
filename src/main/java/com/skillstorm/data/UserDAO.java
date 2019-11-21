@@ -9,19 +9,10 @@ import java.sql.SQLException;
 import com.skillstorm.projectObjects.User;
 
 public class UserDAO {
-
-	public Connection getConnection() {
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/paper_chasers", "root", "");
-			return conn;
-		} catch (SQLException | ClassNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-	}
 	
 	public User findUserByUsernamePassword(String username, String password) {
-		Connection conn = getConnection();
+		new ConnectionFactory();
+		Connection conn = ConnectionFactory.getConnection();
 		User user = null;
 		try {
 			String sql = "select ID, first_name, last_name, username, password, role_ID from User where username=? AND password=?";
