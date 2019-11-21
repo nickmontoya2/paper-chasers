@@ -101,14 +101,30 @@ function appendTimesheet(timesheet) {
     if (timesheet.status == 1) {
         status.innerText = "Saved"
         // Add buttons for edit, delete, submit here
+        // edit button
         let editButton = document.createElement('button')
         editButton.setAttribute('type', "button")
-        editButton.setAttribute('class', "editButton")
         editButton.setAttribute('value', timesheet.timesheet_ID)
-        editButton.setAttribute('onclick', "getTimesheetID(this)")
+        editButton.setAttribute('onclick', "editTimesheet(this)")
         editButton.innerText = "Edit"
         status.appendChild(editButton)
+        // delete button
+        let deleteButton = document.createElement('button')
+        deleteButton.setAttribute('type', "button")
+        deleteButton.setAttribute('value', timesheet.timesheet_ID)
+        deleteButton.setAttribute('onclick', "deleteTimesheet(this)")
+        deleteButton.innerText = "Delete"
+        status.appendChild(deleteButton)
+        // submit button
+        let submitButton = document.createElement('button')
+        submitButton.setAttribute('type', "button")
+        submitButton.setAttribute('value', timesheet.timesheet_ID)
+        submitButton.setAttribute('onclick', "submitTimesheet(this)")
+        submitButton.innerText = "Submit Timesheet"
+        status.appendChild(submitButton)
+
     } else if (timesheet.status == 2) {
+        // No need for edit, delete, submit buttons for this 
         status.innerText = "Submitted"
     }
 
@@ -125,6 +141,16 @@ function appendTimesheet(timesheet) {
     document.getElementById('timesheets').appendChild(tr)
 }
 
-function getTimesheetID(editButton){
-    console.log(editButton.value)
+function editTimesheet(editButton){
+    console.log("Pressed edit button for timesheet_ID: ", editButton.value)
+    // set up functionality to edit timesheet
+}
+
+function deleteTimesheet(deleteButton){
+    console.log("Pressed delete button for timesheet_ID: ", deleteButton.value)
+    // set up functionality to delete timesheet
+}
+
+function submitTimesheet(submitButton) {
+    console.log("Pressed submit button for timesheet_ID: ", submitButton.value)
 }
