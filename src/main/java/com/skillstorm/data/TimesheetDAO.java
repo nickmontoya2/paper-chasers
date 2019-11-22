@@ -91,6 +91,33 @@ public class TimesheetDAO {
 	}; // End save()
 	
 	// To change the timesheet status from saved to submitted
-	//public Timesheet update(Timesheet t) {};
+	public Timesheet update(int timesheetID) {
+		new ConnectionFactory();
+		Timesheet ts = null;
+		Connection conn = ConnectionFactory.getConnection();
+		
+		try {
+			String sql = "update Timesheet set status_ID=2 where ID=?";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, timesheetID);
+			
+			stmt.executeUpdate();
+			ResultSet keys = stmt.getGeneratedKeys();
+			// At this point update ts to be new timesheet with updated values.
+			// Create timesheet object based on values in keys
+			keys.next();
+			System.out.println("Successfully updated table and the keys: " + keys);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
+		return ts;
+	};
 	
 }

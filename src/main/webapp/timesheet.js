@@ -153,4 +153,28 @@ function deleteTimesheet(deleteButton){
 
 function submitTimesheet(submitButton) {
     console.log("Pressed submit button for timesheet_ID: ", submitButton.value)
+    // set up functionality to submit timesheet
+    // PUT request to api/timesheets
+    let tsID = {
+        timesheet_ID: submitButton.value
+    }
+    let promise = axios.put('http://localhost:8080/paper-chasers/api/timesheets', tsID)
+    promise.then(function(response){
+        // put request succeeded
+        console.log("PUT request succeeded")
+    })
+    promise.catch(function(response){
+        console.log("PUT request failed: ", response) 
+    })
+
+
+    promise.then(function(response){
+        // if PUT request succeeds
+        console.log("PUT request succeeded")
+    }) // End promise.then callback
+
+    promise.catch(function(response){
+        // if PUT request fails
+        console.log("PUT request failed: ", response)
+    }) // End promise.catch callback
 }

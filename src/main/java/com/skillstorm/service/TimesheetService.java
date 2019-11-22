@@ -18,4 +18,8 @@ public class TimesheetService {
 	public Timesheet saveNewTimesheet(Timesheet timesheet) {
 		return timesheetDAO.save(timesheet);
 	}
+	
+	public Timesheet submitTimesheet(int timesheetID) {
+		return timesheetDAO.update(timesheetID);
+	}
 }

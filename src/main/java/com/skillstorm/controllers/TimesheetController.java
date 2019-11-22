@@ -5,7 +5,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skillstorm.projectObjects.Timesheet;
 import com.skillstorm.service.TimesheetService;
@@ -73,6 +75,24 @@ public class TimesheetController {
 		}
 		
 	} // end saveTimesheet()
+	
+	public void submitTimesheet() throws JsonParseException, JsonMappingException, IOException {
+		response.setContentType("application/json");
+		System.out.println("In submitTimesheet controller");
+		Timesheet ts = new ObjectMapper().readValue(request.getInputStream(), Timesheet.class);
+		System.out.println(ts.getTimesheet_ID());
+		ts = timesheetService.submitTimesheet(ts.getTimesheet_ID());
+		
+		if (ts != null) {
+			// send redirect 
+			System.out.println("timesheet wasn't null");
+		}
+		else {
+			// handle fail case
+			System.out.println("timesheet was null");
+		}
+		response.sendRedirect("/paper-chasers/timesheetPortal.html");
+	} // End submitTimesheer()
 	
 	
 	// Helper methods

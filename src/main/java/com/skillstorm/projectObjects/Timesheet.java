@@ -30,6 +30,11 @@ public class Timesheet {
 		this.friday_hours = friday_hours;
 		this.week_ending = week_ending;
 	}
+	
+	public Timesheet(int timesheet_ID) {
+		super();
+		this.timesheet_ID = timesheet_ID;
+	}
 
 	// Getters & Setters
 	public int getTimesheet_ID() {

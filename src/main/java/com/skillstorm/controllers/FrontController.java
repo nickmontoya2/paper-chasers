@@ -40,6 +40,21 @@ public class FrontController extends HttpServlet {
 		default:
 			break;
 		} // switch
-	} // doPost
+	} // End doPost
+	
+	@Override
+	protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("Front Controller received PUT from URI: " + req.getRequestURI());
+		
+		switch(req.getRequestURI()) {
+		case "/paper-chasers/api/timesheets":
+			System.out.println("Submit timesheet route");
+			// Call timesheet controller
+			new TimesheetController(req, resp).submitTimesheet();
+			break;
+		default:
+			break;
+		}
+	} // End doPut
 	
 }
