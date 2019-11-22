@@ -82,6 +82,8 @@ public class TimesheetController {
 		Timesheet ts = new ObjectMapper().readValue(request.getInputStream(), Timesheet.class);
 		System.out.println(ts.getTimesheet_ID());
 		ts = timesheetService.submitTimesheet(ts.getTimesheet_ID());
+		// Should use object mapper to send response back with ts
+		response.getWriter().println(new ObjectMapper().writeValueAsString(ts));
 		
 		if (ts != null) {
 			// send redirect 
@@ -91,7 +93,7 @@ public class TimesheetController {
 			// handle fail case
 			System.out.println("timesheet was null");
 		}
-		response.sendRedirect("/paper-chasers/timesheetPortal.html");
+		//response.sendRedirect("/paper-chasers/timesheetPortal.html");
 	} // End submitTimesheer()
 	
 	

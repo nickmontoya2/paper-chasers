@@ -48,6 +48,38 @@ public class TimesheetDAO {
 		return results;
 	};
 	
+	// To grab all information for a single timesheet by it's unique ID
+	public Timesheet findTimesheetById(int id) {
+		new ConnectionFactory();
+		Connection conn = ConnectionFactory.getConnection();
+		Timesheet ts = null;
+		
+		try {
+			String sql = "select * from Timesheet where ID=?";
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			// Construst timesheet ts from results
+			rs.next();
+			ts = new Timesheet(rs.getInt("ID"),
+					rs.getInt("user_ID"), Integer.parseInt(rs.getString("status_ID")), rs.getFloat("monday_hours"),
+					rs.getFloat("tuesday_hours"), rs.getFloat("wednesday_hours"),
+					rs.getFloat("thursday_hours"), rs.getFloat("friday_hours"),
+					rs.getString("week_ending"));
+			
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
+		return ts;
+	} // End findTimesheetById()
+	
 	// For being able to edit a timesheet when you have the id
 	//public Timesheet findTimesheetById(int id) {};
 	
@@ -102,11 +134,11 @@ public class TimesheetDAO {
 			stmt.setInt(1, timesheetID);
 			
 			stmt.executeUpdate();
-			ResultSet keys = stmt.getGeneratedKeys();
+			//ResultSet keys = stmt.getGeneratedKeys();
 			// At this point update ts to be new timesheet with updated values.
 			// Create timesheet object based on values in keys
-			keys.next();
-			System.out.println("Successfully updated table and the keys: " + keys);
+			//System.out.println("Timesheet ID: " + keys.getInt(1));
+			ts = findTimesheetById(timesheetID);
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		} finally {

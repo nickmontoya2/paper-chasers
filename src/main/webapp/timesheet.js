@@ -162,19 +162,11 @@ function submitTimesheet(submitButton) {
     promise.then(function(response){
         // put request succeeded
         console.log("PUT request succeeded")
+        // remove buttons, Submitted
     })
     promise.catch(function(response){
         console.log("PUT request failed: ", response) 
+        //you are logging the response but not handling it, catch is only for errors, you might can do a || "" to say do nothing if no error
+        // indicate a failure, maybe why
     })
-
-
-    promise.then(function(response){
-        // if PUT request succeeds
-        console.log("PUT request succeeded")
-    }) // End promise.then callback
-
-    promise.catch(function(response){
-        // if PUT request fails
-        console.log("PUT request failed: ", response)
-    }) // End promise.catch callback
 }
