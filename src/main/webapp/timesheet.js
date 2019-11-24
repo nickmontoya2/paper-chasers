@@ -179,8 +179,6 @@ function editTimesheet(editButton){
     let wHours = document.getElementById('wHours' + editButton.value).getAttribute("value")
     let rHours = document.getElementById('rHours' + editButton.value).getAttribute("value")
     let fHours = document.getElementById('fHours' + editButton.value).getAttribute("value")
-
-    console.log(mHours)
     // 2. Change the row to have 5 inputs & save button
     // Need to wrap each one in a <td> tag in order to make it line up properly
     removeElement("mHours" + editButton.value)
@@ -194,32 +192,42 @@ function editTimesheet(editButton){
     removeElement("weekEndingID" + editButton.value)
     removeElement("statusElement" + editButton.value)
 
+    let mInput = document.createElement('td')
     let mHoursInput = document.createElement('input')
     mHoursInput.setAttribute('type', "text")
     mHoursInput.setAttribute('placeholder', mHours)
+    mInput.appendChild(mHoursInput)
 
+    let tInput = document.createElement('td')
     let tHoursInput = document.createElement('input')
     tHoursInput.setAttribute('type', "text")
     tHoursInput.setAttribute('placeholder', tHours)
+    tInput.appendChild(tHoursInput)
 
+    let wInput = document.createElement('td')
     let wHoursInput = document.createElement('input')
     wHoursInput.setAttribute('type', "text")
     wHoursInput.setAttribute('placeholder', wHours)
+    wInput.appendChild(wHoursInput)
 
+    let rInput = document.createElement('td')
     let rHoursInput = document.createElement('input')
     rHoursInput.setAttribute('type', "text")
     rHoursInput.setAttribute('placeholder', rHours)
+    rInput.appendChild(rHoursInput)
 
+    let fInput = document.createElement('td')
     let fHoursInput = document.createElement('input')
     fHoursInput.setAttribute('type', "text")
     fHoursInput.setAttribute('placeholder', fHours)
+    fInput.appendChild(fHoursInput)
 
     let currRow = document.getElementById('timesheetRow' + editButton.value)
-    currRow.appendChild(mHoursInput)
-    currRow.appendChild(tHoursInput)
-    currRow.appendChild(wHoursInput)
-    currRow.appendChild(rHoursInput)
-    currRow.appendChild(fHoursInput)
+    currRow.appendChild(mInput)
+    currRow.appendChild(tInput)
+    currRow.appendChild(wInput)
+    currRow.appendChild(rInput)
+    currRow.appendChild(fInput)
     // 3. On save send put request to update displayed values
     // 4. On successful PUT reupdate the row to show correct values along with edit, delete, submit buttons
 }
