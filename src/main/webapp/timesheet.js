@@ -174,9 +174,15 @@ function editTimesheet(editButton){
 
     // set up functionality to edit timesheet
     // 1. Get current values based on timesheet ID
-    var mHours = document.getElementById('mHours' + editButton.value).getAttribute("value")
+    let mHours = document.getElementById('mHours' + editButton.value).getAttribute("value")
+    let tHours = document.getElementById('tHours' + editButton.value).getAttribute("value")
+    let wHours = document.getElementById('wHours' + editButton.value).getAttribute("value")
+    let rHours = document.getElementById('rHours' + editButton.value).getAttribute("value")
+    let fHours = document.getElementById('fHours' + editButton.value).getAttribute("value")
+
     console.log(mHours)
     // 2. Change the row to have 5 inputs & save button
+    // Need to wrap each one in a <td> tag in order to make it line up properly
     removeElement("mHours" + editButton.value)
     removeElement("tHours" + editButton.value)
     removeElement("wHours" + editButton.value)
@@ -187,11 +193,33 @@ function editTimesheet(editButton){
     removeElement("submitButton" + editButton.value)
     removeElement("weekEndingID" + editButton.value)
     removeElement("statusElement" + editButton.value)
+
     let mHoursInput = document.createElement('input')
     mHoursInput.setAttribute('type', "text")
     mHoursInput.setAttribute('placeholder', mHours)
 
-    document.getElementById('timesheetRow' + editButton.value).appendChild(mHoursInput)
+    let tHoursInput = document.createElement('input')
+    tHoursInput.setAttribute('type', "text")
+    tHoursInput.setAttribute('placeholder', tHours)
+
+    let wHoursInput = document.createElement('input')
+    wHoursInput.setAttribute('type', "text")
+    wHoursInput.setAttribute('placeholder', wHours)
+
+    let rHoursInput = document.createElement('input')
+    rHoursInput.setAttribute('type', "text")
+    rHoursInput.setAttribute('placeholder', rHours)
+
+    let fHoursInput = document.createElement('input')
+    fHoursInput.setAttribute('type', "text")
+    fHoursInput.setAttribute('placeholder', fHours)
+
+    let currRow = document.getElementById('timesheetRow' + editButton.value)
+    currRow.appendChild(mHoursInput)
+    currRow.appendChild(tHoursInput)
+    currRow.appendChild(wHoursInput)
+    currRow.appendChild(rHoursInput)
+    currRow.appendChild(fHoursInput)
     // 3. On save send put request to update displayed values
     // 4. On successful PUT reupdate the row to show correct values along with edit, delete, submit buttons
 }
