@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function(){
         // GET request succeeded
         console.log("Success")
         console.log(response.data)
+
         addMultipleTimesheets(response.data)
     }) // End promise.then callback
     promise.catch(function(response){
@@ -47,7 +48,7 @@ document.getElementById('newTimesheetButton').addEventListener('click', function
     fHours.setAttribute('value', "Friday Hours")
     let weekEnding = document.createElement("input")
     weekEnding.setAttribute('type', "text")
-    weekEnding.setAttribute('name', "week_ending")
+    weekEnding.setAttribute('name', "weekEnding")
     weekEnding.setAttribute('value', "Week Ending Date")
     let submit = document.createElement('input')
     submit.setAttribute('type', "submit")
@@ -81,23 +82,40 @@ function addMultipleTimesheets(list){
 function appendTimesheet(timesheet) {
     // New row
     let tr = document.createElement('tr')
+    let timesheetRowID = "timesheetRow" + timesheet.timesheet_ID
+    tr.setAttribute('id', timesheetRowID)
     // new elements within row
     let id = document.createElement('td')
     id.innerText = timesheet.timesheet_ID
     let monday = document.createElement('td')
+    monday.setAttribute('id', "mHours" + timesheet.timesheet_ID)
+    monday.setAttribute('value', timesheet.monday_hours)
     monday.innerText = timesheet.monday_hours
     let tuesday = document.createElement('td')
+    tuesday.setAttribute('id', "tHours" + timesheet.timesheet_ID)
+    tuesday.setAttribute('value', timesheet.tuesday_hours)
     tuesday.innerText = timesheet.tuesday_hours
     let wednesday = document.createElement('td')
+    wednesday.setAttribute('id', "wHours" + timesheet.timesheet_ID)
+    wednesday.setAttribute('value', timesheet.wednesday_hours)
     wednesday.innerText = timesheet.wednesday_hours
     let thursday = document.createElement('td')
+    thursday.setAttribute('id', "rHours" + timesheet.timesheet_ID)
+    thursday.setAttribute('value', timesheet.thursday_hours)
     thursday.innerText = timesheet.thursday_hours
     let friday = document.createElement('td')
+    friday.setAttribute('id', "fHours" + timesheet.timesheet_ID)
+    friday.setAttribute('value', timesheet.friday_hours)
     friday.innerText = timesheet.friday_hours
-    let week_ending = document.createElement('td')
-    week_ending.innerText = timesheet.week_ending
+    let weekEnding = document.createElement('td')
+    weekEnding.setAttribute('id', "weekEndingID" + timesheet.timesheet_ID)
+    weekEnding.setAttribute('value', timesheet.weekEnding)
+    weekEnding.innerText = timesheet.weekEnding
     // check value of status and switch to either 'saved' or 'submitted'
     let status = document.createElement('td')
+    let statusID = "statusElement" + timesheet.timesheet_ID
+    status.setAttribute('id', statusID)
+    
     if (timesheet.status == 1) {
         status.innerText = "Saved"
         // Add buttons for edit, delete, submit here
@@ -107,6 +125,8 @@ function appendTimesheet(timesheet) {
         editButton.setAttribute('value', timesheet.timesheet_ID)
         editButton.setAttribute('onclick', "editTimesheet(this)")
         editButton.innerText = "Edit"
+        let editID = "editButton" + timesheet.timesheet_ID
+        editButton.setAttribute('id', editID)
         status.appendChild(editButton)
         // delete button
         let deleteButton = document.createElement('button')
@@ -114,6 +134,8 @@ function appendTimesheet(timesheet) {
         deleteButton.setAttribute('value', timesheet.timesheet_ID)
         deleteButton.setAttribute('onclick', "deleteTimesheet(this)")
         deleteButton.innerText = "Delete"
+        let deleteID = "deleteButton" + timesheet.timesheet_ID
+        deleteButton.setAttribute('id', deleteID)
         status.appendChild(deleteButton)
         // submit button
         let submitButton = document.createElement('button')
@@ -121,6 +143,8 @@ function appendTimesheet(timesheet) {
         submitButton.setAttribute('value', timesheet.timesheet_ID)
         submitButton.setAttribute('onclick', "submitTimesheet(this)")
         submitButton.innerText = "Submit Timesheet"
+        let submitID = "submitButton" + timesheet.timesheet_ID
+        submitButton.setAttribute('id', submitID)
         status.appendChild(submitButton)
 
     } else if (timesheet.status == 2) {
@@ -135,15 +159,27 @@ function appendTimesheet(timesheet) {
     tr.appendChild(wednesday);
     tr.appendChild(thursday);
     tr.appendChild(friday);
-    tr.appendChild(week_ending);
+    tr.appendChild(weekEnding);
     tr.appendChild(status);
     // Append the new row into the table
     document.getElementById('timesheets').appendChild(tr)
 }
 
+/*
+* Functions to edit, delete, and submit a timesheet
+*/
+
 function editTimesheet(editButton){
     console.log("Pressed edit button for timesheet_ID: ", editButton.value)
+
+    let mHours = document.getElementById('mHours' + editButton.value)
+    console.log(mHours)
+    console.log(mHours.value)
     // set up functionality to edit timesheet
+    // 1. Get current values based on timesheet ID
+    // 2. Change the row to have 5 inputs & save button
+    // 3. On save send put request to update displayed values
+    // 4. On successful PUT reupdate the row to show correct values along with edit, delete, submit buttons
 }
 
 function deleteTimesheet(deleteButton){
@@ -162,11 +198,22 @@ function submitTimesheet(submitButton) {
     promise.then(function(response){
         // put request succeeded
         console.log("PUT request succeeded")
-        // remove buttons, Submitted
+        // remove buttons, change text to Submitted
+        removeElement("editButton"+submitButton.value)
+        removeElement("deleteButton"+submitButton.value)
+        removeElement("submitButton"+submitButton.value)
+        document.getElementById('statusElement'+submitButton.value).innerText = "Submitted"
+
     })
     promise.catch(function(response){
         console.log("PUT request failed: ", response) 
         //you are logging the response but not handling it, catch is only for errors, you might can do a || "" to say do nothing if no error
         // indicate a failure, maybe why
     })
+}
+
+// Remove element function
+function removeElement(elementId) {
+    var element = document.getElementById(elementId);
+    element.parentNode.removeChild(element);
 }

@@ -42,6 +42,7 @@ public class LoginController {
 		User user = null;
 		
 		response.setContentType("application/json");
+		
 		if (request.getParameter("username") != null && request.getParameter("password") != null) {
 			user = userService.login(request.getParameter("username"), request.getParameter("password"));
 			response.getWriter().println(new ObjectMapper().writeValueAsString(user));			
@@ -53,7 +54,9 @@ public class LoginController {
 		if (user != null) {
 			// Create a session to store user_ID 
 			System.out.println(request.getSession().getAttribute("user_ID"));
+			
 			request.getSession().setAttribute("user_ID", user.getUser_id());
+			
 			System.out.println(request.getSession().getAttribute("user_ID"));
 			// redirect to timesheetPortal.html
 			response.sendRedirect("/paper-chasers/timesheetPortal.html");

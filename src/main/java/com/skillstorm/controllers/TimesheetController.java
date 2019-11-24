@@ -80,7 +80,7 @@ public class TimesheetController {
 		response.setContentType("application/json");
 		System.out.println("In submitTimesheet controller");
 		Timesheet ts = new ObjectMapper().readValue(request.getInputStream(), Timesheet.class);
-		System.out.println(ts.getTimesheet_ID());
+		//System.out.println(ts.getTimesheet_ID());
 		ts = timesheetService.submitTimesheet(ts.getTimesheet_ID());
 		// Should use object mapper to send response back with ts
 		response.getWriter().println(new ObjectMapper().writeValueAsString(ts));
