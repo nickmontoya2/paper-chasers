@@ -29,27 +29,27 @@ document.getElementById('newTimesheetButton').addEventListener('click', function
     let mHours = document.createElement('input')
     mHours.setAttribute('type', "text")
     mHours.setAttribute('name', "monday_hours")
-    mHours.setAttribute('value', "Monday Hours")
+    mHours.setAttribute('placeholder', "Monday Hours")
     let tHours = document.createElement("input")
     tHours.setAttribute('type', "text")
     tHours.setAttribute('name', "tuesday_hours")
-    tHours.setAttribute('value', "Tuesday Hours")
+    tHours.setAttribute('placeholder', "Tuesday Hours")
     let wHours = document.createElement("input")
     wHours.setAttribute('type', "text")
     wHours.setAttribute('name', "wednesday_hours")
-    wHours.setAttribute('value', "Wednesday Hours")
+    wHours.setAttribute('placeholder', "Wednesday Hours")
     let rHours = document.createElement("input")
     rHours.setAttribute('type', "text")
     rHours.setAttribute('name', "thursday_hours")
-    rHours.setAttribute('value', "Thursday Hours")
+    rHours.setAttribute('placeholder', "Thursday Hours")
     let fHours = document.createElement("input")
     fHours.setAttribute('type', "text")
     fHours.setAttribute('name', "friday_hours")
-    fHours.setAttribute('value', "Friday Hours")
-    let weekEnding = document.createElement("input")
-    weekEnding.setAttribute('type', "text")
-    weekEnding.setAttribute('name', "weekEnding")
-    weekEnding.setAttribute('value', "Week Ending Date")
+    fHours.setAttribute('placeholder', "Friday Hours")
+    let weekEndingForm = document.createElement("input")
+    weekEndingForm.setAttribute('type', "text")
+    weekEndingForm.setAttribute('name', "week_ending")
+    weekEndingForm.setAttribute('placeholder', "Week Ending Date")
     let submit = document.createElement('input')
     submit.setAttribute('type', "submit")
     submit.setAttribute('value', "Save Timesheet")
@@ -59,7 +59,7 @@ document.getElementById('newTimesheetButton').addEventListener('click', function
     newForm.appendChild(wHours)
     newForm.appendChild(rHours)
     newForm.appendChild(fHours)
-    newForm.appendChild(weekEnding)
+    newForm.appendChild(weekEndingForm)
     newForm.appendChild(submit)
     // Add whole form to div
     document.getElementById('newForms').appendChild(newForm)
@@ -179,6 +179,7 @@ function editTimesheet(editButton){
     let wHours = document.getElementById('wHours' + editButton.value).getAttribute("value")
     let rHours = document.getElementById('rHours' + editButton.value).getAttribute("value")
     let fHours = document.getElementById('fHours' + editButton.value).getAttribute("value")
+    let currWeekEnding = document.getElementById('weekEndingID' + editButton.value).getAttribute("value")
     // 2. Change the row to have 5 inputs & save button
     // Need to wrap each one in a <td> tag in order to make it line up properly
     removeElement("mHours" + editButton.value)
@@ -195,32 +196,49 @@ function editTimesheet(editButton){
     let mInput = document.createElement('td')
     let mHoursInput = document.createElement('input')
     mHoursInput.setAttribute('type', "text")
-    mHoursInput.setAttribute('placeholder', mHours)
+    mHoursInput.setAttribute('value', mHours)
     mInput.appendChild(mHoursInput)
 
     let tInput = document.createElement('td')
     let tHoursInput = document.createElement('input')
     tHoursInput.setAttribute('type', "text")
-    tHoursInput.setAttribute('placeholder', tHours)
+    tHoursInput.setAttribute('value', tHours)
     tInput.appendChild(tHoursInput)
 
     let wInput = document.createElement('td')
     let wHoursInput = document.createElement('input')
     wHoursInput.setAttribute('type', "text")
-    wHoursInput.setAttribute('placeholder', wHours)
+    wHoursInput.setAttribute('value', wHours)
     wInput.appendChild(wHoursInput)
 
     let rInput = document.createElement('td')
     let rHoursInput = document.createElement('input')
     rHoursInput.setAttribute('type', "text")
-    rHoursInput.setAttribute('placeholder', rHours)
+    rHoursInput.setAttribute('value', rHours)
     rInput.appendChild(rHoursInput)
 
     let fInput = document.createElement('td')
     let fHoursInput = document.createElement('input')
     fHoursInput.setAttribute('type', "text")
-    fHoursInput.setAttribute('placeholder', fHours)
+    fHoursInput.setAttribute('value', fHours)
     fInput.appendChild(fHoursInput)
+
+    let weekInput = document.createElement('td')
+    let newWeekEnding = document.createElement('input')
+    newWeekEnding.setAttribute('type', "text")
+    newWeekEnding.setAttribute('value', currWeekEnding)
+    weekInput.appendChild(newWeekEnding)
+
+    let saveInput = document.createElement('td')
+    let saveButton = document.createElement('button')
+    saveButton.setAttribute('type', "button")
+    saveButton.setAttribute('value', editButton.value)
+    saveButton.setAttribute('onclick', "updateTimesheet(this)")
+    saveButton.innerText = "Update Timesheet"
+    let saveID = "saveButton" + editButton.value
+    saveButton.setAttribute('id', saveID)
+    saveInput.appendChild(saveButton)
+
 
     let currRow = document.getElementById('timesheetRow' + editButton.value)
     currRow.appendChild(mInput)
@@ -228,6 +246,8 @@ function editTimesheet(editButton){
     currRow.appendChild(wInput)
     currRow.appendChild(rInput)
     currRow.appendChild(fInput)
+    currRow.appendChild(weekInput)
+    currRow.appendChild(saveInput)
     // 3. On save send put request to update displayed values
     // 4. On successful PUT reupdate the row to show correct values along with edit, delete, submit buttons
 }
@@ -261,6 +281,11 @@ function submitTimesheet(submitButton) {
         // indicate a failure, maybe why
     })
 }
+
+function updateTimesheet(saveButton){
+    console.log("Pressed save button to update timesheet for ID: ", saveButton.value)
+}
+
 
 // Remove element function
 function removeElement(elementId) {

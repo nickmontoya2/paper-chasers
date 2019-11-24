@@ -60,6 +60,7 @@ public class TimesheetController {
 		if (mHours!=null && tHours!=null && wHours!=null && rHours!=null && fHours!=null && weekEnding!=null) {
 			// create new Timesheet & pass to service. default timesheet_ID, will overwrite after
 			// auto-increment value returns from database
+			System.out.println("Got values from parameters for new timesheet");
 			newTimesheet = new Timesheet(0, user_ID, saved, mHours, tHours, wHours, 
 					rHours, fHours, weekEnding);
 			// pass to service
@@ -72,6 +73,7 @@ public class TimesheetController {
 			response.sendRedirect("/paper-chasers/timesheetPortal.html");
 		} else {
 			// the values failed gg man
+			System.out.println("new timesheet was null in saveTimesheet()");
 		}
 		
 	} // end saveTimesheet()
