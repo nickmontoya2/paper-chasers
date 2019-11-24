@@ -109,8 +109,8 @@ function appendTimesheet(timesheet) {
     friday.innerText = timesheet.friday_hours
     let weekEnding = document.createElement('td')
     weekEnding.setAttribute('id', "weekEndingID" + timesheet.timesheet_ID)
-    weekEnding.setAttribute('value', timesheet.weekEnding)
-    weekEnding.innerText = timesheet.weekEnding
+    weekEnding.setAttribute('value', timesheet.week_ending)
+    weekEnding.innerText = timesheet.week_ending
     // check value of status and switch to either 'saved' or 'submitted'
     let status = document.createElement('td')
     let statusID = "statusElement" + timesheet.timesheet_ID
@@ -170,14 +170,28 @@ function appendTimesheet(timesheet) {
 */
 
 function editTimesheet(editButton){
-    console.log("Pressed edit button for timesheet_ID: ", editButton.value)
+    console.log("Pressed edit button for timesheet_ID: ", editButton.value)    
 
-    let mHours = document.getElementById('mHours' + editButton.value)
-    console.log(mHours)
-    console.log(mHours.value)
     // set up functionality to edit timesheet
     // 1. Get current values based on timesheet ID
+    var mHours = document.getElementById('mHours' + editButton.value).getAttribute("value")
+    console.log(mHours)
     // 2. Change the row to have 5 inputs & save button
+    removeElement("mHours" + editButton.value)
+    removeElement("tHours" + editButton.value)
+    removeElement("wHours" + editButton.value)
+    removeElement("rHours" + editButton.value)
+    removeElement("fHours" + editButton.value)
+    removeElement("editButton" + editButton.value)
+    removeElement("deleteButton" + editButton.value)
+    removeElement("submitButton" + editButton.value)
+    removeElement("weekEndingID" + editButton.value)
+    removeElement("statusElement" + editButton.value)
+    let mHoursInput = document.createElement('input')
+    mHoursInput.setAttribute('type', "text")
+    mHoursInput.setAttribute('placeholder', mHours)
+
+    document.getElementById('timesheetRow' + editButton.value).appendChild(mHoursInput)
     // 3. On save send put request to update displayed values
     // 4. On successful PUT reupdate the row to show correct values along with edit, delete, submit buttons
 }
