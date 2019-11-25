@@ -123,7 +123,7 @@ public class TimesheetDAO {
 	}; // End save()
 	
 	// To change the timesheet status from saved to submitted
-	public Timesheet update(int timesheetID) {
+	public Timesheet updateStatus(int timesheetID) {
 		new ConnectionFactory();
 		Timesheet ts = null;
 		Connection conn = ConnectionFactory.getConnection();
@@ -150,6 +150,11 @@ public class TimesheetDAO {
 		}
 		
 		return ts;
-	};
+	}; // End updateStatus()
+	
+	public Timesheet updateTimesheet(int timesheetID) {
+		
+		return;
+	} // End updateTimesheet()
 	
 }

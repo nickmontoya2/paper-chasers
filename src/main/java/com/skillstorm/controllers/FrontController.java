@@ -52,6 +52,11 @@ public class FrontController extends HttpServlet {
 			// Call timesheet controller
 			new TimesheetController(req, resp).submitTimesheet();
 			break;
+		case "/paper-chasers/api/update-timesheet":
+			System.out.println("Update existing timesheet route");
+			// Call timesheet controller
+			new TimesheetController(req, resp).updateTimesheet();
+			break;
 		default:
 			break;
 		}

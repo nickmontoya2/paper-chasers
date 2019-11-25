@@ -248,7 +248,12 @@ function editTimesheet(editButton){
     currRow.appendChild(fInput)
     currRow.appendChild(weekInput)
     currRow.appendChild(saveInput)
-    // 3. On save send put request to update displayed values
+    // Row now has input fields & button linked to updateTimesheet() below
+}
+
+function updateTimesheet(saveButton){
+    console.log("Pressed save button to update timesheet for ID: ", saveButton.value)
+    // 3. On save send PUT request to update values for current timesheet in MySQL
     // 4. On successful PUT reupdate the row to show correct values along with edit, delete, submit buttons
 }
 
@@ -277,15 +282,9 @@ function submitTimesheet(submitButton) {
     })
     promise.catch(function(response){
         console.log("PUT request failed: ", response) 
-        //you are logging the response but not handling it, catch is only for errors, you might can do a || "" to say do nothing if no error
         // indicate a failure, maybe why
     })
 }
-
-function updateTimesheet(saveButton){
-    console.log("Pressed save button to update timesheet for ID: ", saveButton.value)
-}
-
 
 // Remove element function
 function removeElement(elementId) {

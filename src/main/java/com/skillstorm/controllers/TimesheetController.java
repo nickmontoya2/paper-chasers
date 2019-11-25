@@ -98,6 +98,11 @@ public class TimesheetController {
 		//response.sendRedirect("/paper-chasers/timesheetPortal.html");
 	} // End submitTimesheer()
 	
+	// Allows user to edit existing timesheet
+	public void updateTimesheet() {
+		// timesheetService.updateTimesheet(ts.getTimesheet_ID());
+	}
+	
 	
 	// Helper methods
 	private int getUserId() {

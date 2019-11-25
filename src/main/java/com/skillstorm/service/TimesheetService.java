@@ -20,6 +20,10 @@ public class TimesheetService {
 	}
 	
 	public Timesheet submitTimesheet(int timesheetID) {
-		return timesheetDAO.update(timesheetID);
+		return timesheetDAO.updateStatus(timesheetID);
+	}
+	
+	public Timesheet updateTimesheet(int timesheetID) {
+		return timesheetDAO.updateTimesheet(timesheetID);
 	}
 }
