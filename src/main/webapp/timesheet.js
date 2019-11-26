@@ -194,6 +194,7 @@ function editTimesheet(editButton){
     removeElement("statusElement" + editButton.value)
 
     let mInput = document.createElement('td')
+    mInput.setAttribute('id', 'mInput' + editButton.value)
     let mHoursInput = document.createElement('input')
     mHoursInput.setAttribute('type', "text")
     mHoursInput.setAttribute('value', mHours)
@@ -201,6 +202,7 @@ function editTimesheet(editButton){
     mInput.appendChild(mHoursInput)
 
     let tInput = document.createElement('td')
+    tInput.setAttribute('id', 'tInput' + editButton.value)
     let tHoursInput = document.createElement('input')
     tHoursInput.setAttribute('type', "text")
     tHoursInput.setAttribute('value', tHours)
@@ -208,6 +210,7 @@ function editTimesheet(editButton){
     tInput.appendChild(tHoursInput)
 
     let wInput = document.createElement('td')
+    wInput.setAttribute('id', 'wInput' + editButton.value)
     let wHoursInput = document.createElement('input')
     wHoursInput.setAttribute('type', "text")
     wHoursInput.setAttribute('value', wHours)
@@ -215,6 +218,7 @@ function editTimesheet(editButton){
     wInput.appendChild(wHoursInput)
 
     let rInput = document.createElement('td')
+    rInput.setAttribute('id', 'rInput' + editButton.value)
     let rHoursInput = document.createElement('input')
     rHoursInput.setAttribute('type', "text")
     rHoursInput.setAttribute('value', rHours)
@@ -222,6 +226,7 @@ function editTimesheet(editButton){
     rInput.appendChild(rHoursInput)
 
     let fInput = document.createElement('td')
+    fInput.setAttribute('id', 'fInput' + editButton.value)
     let fHoursInput = document.createElement('input')
     fHoursInput.setAttribute('type', "text")
     fHoursInput.setAttribute('value', fHours)
@@ -229,6 +234,7 @@ function editTimesheet(editButton){
     fInput.appendChild(fHoursInput)
 
     let weekInput = document.createElement('td')
+    weekInput.setAttribute('id', 'weekInput' + editButton.value)
     let newWeekEnding = document.createElement('input')
     newWeekEnding.setAttribute('type', "text")
     newWeekEnding.setAttribute('value', currWeekEnding)
@@ -236,6 +242,7 @@ function editTimesheet(editButton){
     weekInput.appendChild(newWeekEnding)
 
     let saveInput = document.createElement('td')
+    saveInput.setAttribute('id', 'saveInput' + editButton.value)
     let saveButton = document.createElement('button')
     saveButton.setAttribute('type', "button")
     saveButton.setAttribute('value', editButton.value)
@@ -258,15 +265,16 @@ function editTimesheet(editButton){
 }
 
 function updateTimesheet(saveButton){
+    let currentTsId = saveButton.value
     console.log("Pressed save button to update timesheet for ID: ", saveButton.value)
     // 3. On save send PUT request to update values for current timesheet in MySQL
     // 3.1 Grab current values
-    let updatedMonday = document.getElementById('newMondayHours' + saveButton.value).value
-    let updatedTuesday = document.getElementById('newTuesdayHours' + saveButton.value).value
-    let updatedWednesday = document.getElementById('newWednesdayHours' + saveButton.value).value
-    let updatedThursday = document.getElementById('newThursdayHours' + saveButton.value).value
-    let updatedFriday = document.getElementById('newFridayHours' + saveButton.value).value
-    let updatedWeekEnding = document.getElementById('newWeekEndingDate' + saveButton.value).value
+    let updatedMonday = document.getElementById('newMondayHours' + currentTsId).value
+    let updatedTuesday = document.getElementById('newTuesdayHours' + currentTsId).value
+    let updatedWednesday = document.getElementById('newWednesdayHours' + currentTsId).value
+    let updatedThursday = document.getElementById('newThursdayHours' + currentTsId).value
+    let updatedFriday = document.getElementById('newFridayHours' + currentTsId).value
+    let updatedWeekEnding = document.getElementById('newWeekEndingDate' + currentTsId).value
     // 3.2 Make object and send in PUT request
     console.log("New Values", updatedMonday, updatedTuesday, updatedWednesday, updatedThursday, updatedFriday, updatedWeekEnding)
     let newTimesheet = {
@@ -284,14 +292,86 @@ function updateTimesheet(saveButton){
         // 4. On successful PUT reupdate the row to show correct values along with edit, delete, submit buttons
         console.log("The PUT request to update timesheet succeeded", response.data)
         // 4.1 Remove inputs & update button
-        removeElement('newMondayHours' + saveButton.value)
-        removeElement('newTuesdayHours' + saveButton.value)
-        removeElement('newWednesdayHours' + saveButton.value)
-        removeElement('newThursdayHours' + saveButton.value)
-        removeElement('newFridayHours' + saveButton.value)
-        removeElement('newWeekEndingDate' + saveButton.value)
-        removeElement('saveButton' + saveButton.value)
+        removeElement('mInput' + currentTsId)
+        removeElement('tInput' + currentTsId)
+        removeElement('wInput' + currentTsId)
+        removeElement('rInput' + currentTsId)
+        removeElement('fInput' + currentTsId)
+        removeElement('weekInput' + currentTsId)
+        removeElement('saveInput' + currentTsId)
         console.log(response.data["monday_hours"], response.data["tuesday_hours"])
+
+        let monday = document.createElement('td')
+        monday.setAttribute('id', "mHours" + currentTsId)
+        monday.setAttribute('value', response.data["monday_hours"])
+        monday.innerText = response.data["monday_hours"]
+
+        let tuesday = document.createElement('td')
+        tuesday.setAttribute('id', "tHours" + currentTsId)
+        tuesday.setAttribute('value', response.data["tuesday_hours"])
+        tuesday.innerText = response.data["tuesday_hours"]
+
+        let wednesday = document.createElement('td')
+        wednesday.setAttribute('id', "wHours" + currentTsId)
+        wednesday.setAttribute('value', response.data["wednesday_hours"])
+        wednesday.innerText = response.data["wednesday_hours"]
+
+        let thursday = document.createElement('td')
+        thursday.setAttribute('id', "rHours" + currentTsId)
+        thursday.setAttribute('value', response.data["thursday_hours"])
+        thursday.innerText = response.data["thursday_hours"]
+
+        let friday = document.createElement('td')
+        friday.setAttribute('id', "fHours" + currentTsId)
+        friday.setAttribute('value', response.data["friday_hours"])
+        friday.innerText = response.data["friday_hours"]
+
+        let weekEnding = document.createElement('td')
+        weekEnding.setAttribute('id', "weekEndingID" + currentTsId)
+        weekEnding.setAttribute('value', response.data["week_ending"])
+        weekEnding.innerText = response.data["week_ending"]
+
+        // check value of status and switch to either 'saved' or 'submitted'
+        let status = document.createElement('td')
+        let statusID = "statusElement" + currentTsId
+        status.setAttribute('id', statusID)
+        status.innerText = "Saved"
+        // edit button
+        let editButton = document.createElement('button')
+        editButton.setAttribute('type', "button")
+        editButton.setAttribute('value', currentTsId)
+        editButton.setAttribute('onclick', "editTimesheet(this)")
+        editButton.innerText = "Edit"
+        let editID = "editButton" + currentTsId
+        editButton.setAttribute('id', editID)
+        status.appendChild(editButton)
+        // delete button
+        let deleteButton = document.createElement('button')
+        deleteButton.setAttribute('type', "button")
+        deleteButton.setAttribute('value', currentTsId)
+        deleteButton.setAttribute('onclick', "deleteTimesheet(this)")
+        deleteButton.innerText = "Delete"
+        let deleteID = "deleteButton" + currentTsId
+        deleteButton.setAttribute('id', deleteID)
+        status.appendChild(deleteButton)
+        // submit button
+        let submitButton = document.createElement('button')
+        submitButton.setAttribute('type', "button")
+        submitButton.setAttribute('value', currentTsId)
+        submitButton.setAttribute('onclick', "submitTimesheet(this)")
+        submitButton.innerText = "Submit Timesheet"
+        let submitID = "submitButton" + currentTsId
+        submitButton.setAttribute('id', submitID)
+        status.appendChild(submitButton)
+
+        let currentRow = document.getElementById("timesheetRow" + currentTsId)
+        currentRow.appendChild(monday)
+        currentRow.appendChild(tuesday)
+        currentRow.appendChild(wednesday)
+        currentRow.appendChild(thursday)
+        currentRow.appendChild(friday)
+        currentRow.appendChild(weekEnding)
+        currentRow.appendChild(status)
 
     }) // End promise.then()
     promise.catch(function(response){
