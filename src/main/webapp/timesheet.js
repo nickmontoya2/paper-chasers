@@ -1,3 +1,10 @@
+/*
+*
+* I'm sorry in advance for the complete & utter lack
+* of DRY in this file. This is WET x 2837401234
+*
+*/
+
 // On page load show all timesheets
 document.addEventListener('DOMContentLoaded', function(){
     let promise = axios.get('http://localhost:8080/paper-chasers/api/timesheets')
