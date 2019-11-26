@@ -197,36 +197,42 @@ function editTimesheet(editButton){
     let mHoursInput = document.createElement('input')
     mHoursInput.setAttribute('type', "text")
     mHoursInput.setAttribute('value', mHours)
+    mHoursInput.setAttribute('id', 'newMondayHours' + editButton.value)
     mInput.appendChild(mHoursInput)
 
     let tInput = document.createElement('td')
     let tHoursInput = document.createElement('input')
     tHoursInput.setAttribute('type', "text")
     tHoursInput.setAttribute('value', tHours)
+    tHoursInput.setAttribute('id', 'newTuesdayHours' + editButton.value)
     tInput.appendChild(tHoursInput)
 
     let wInput = document.createElement('td')
     let wHoursInput = document.createElement('input')
     wHoursInput.setAttribute('type', "text")
     wHoursInput.setAttribute('value', wHours)
+    wHoursInput.setAttribute('id', 'newWednesdayHours' + editButton.value)
     wInput.appendChild(wHoursInput)
 
     let rInput = document.createElement('td')
     let rHoursInput = document.createElement('input')
     rHoursInput.setAttribute('type', "text")
     rHoursInput.setAttribute('value', rHours)
+    rHoursInput.setAttribute('id', 'newThursdayHours' + editButton.value)
     rInput.appendChild(rHoursInput)
 
     let fInput = document.createElement('td')
     let fHoursInput = document.createElement('input')
     fHoursInput.setAttribute('type', "text")
     fHoursInput.setAttribute('value', fHours)
+    fHoursInput.setAttribute('id', 'newFridayHours' + editButton.value)
     fInput.appendChild(fHoursInput)
 
     let weekInput = document.createElement('td')
     let newWeekEnding = document.createElement('input')
     newWeekEnding.setAttribute('type', "text")
     newWeekEnding.setAttribute('value', currWeekEnding)
+    newWeekEnding.setAttribute('id', 'newWeekEndingDate' + editButton.value)
     weekInput.appendChild(newWeekEnding)
 
     let saveInput = document.createElement('td')
@@ -254,7 +260,43 @@ function editTimesheet(editButton){
 function updateTimesheet(saveButton){
     console.log("Pressed save button to update timesheet for ID: ", saveButton.value)
     // 3. On save send PUT request to update values for current timesheet in MySQL
-    // 4. On successful PUT reupdate the row to show correct values along with edit, delete, submit buttons
+    // 3.1 Grab current values
+    let updatedMonday = document.getElementById('newMondayHours' + saveButton.value).value
+    let updatedTuesday = document.getElementById('newTuesdayHours' + saveButton.value).value
+    let updatedWednesday = document.getElementById('newWednesdayHours' + saveButton.value).value
+    let updatedThursday = document.getElementById('newThursdayHours' + saveButton.value).value
+    let updatedFriday = document.getElementById('newFridayHours' + saveButton.value).value
+    let updatedWeekEnding = document.getElementById('newWeekEndingDate' + saveButton.value).value
+    // 3.2 Make object and send in PUT request
+    console.log("New Values", updatedMonday, updatedTuesday, updatedWednesday, updatedThursday, updatedFriday, updatedWeekEnding)
+    let newTimesheet = {
+        timesheet_ID: saveButton.value,
+        monday_hours: updatedMonday,
+        tuesday_hours: updatedTuesday,
+        wednesday_hours: updatedWednesday,
+        thursday_hours: updatedThursday,
+        friday_hours: updatedFriday,
+        week_ending: updatedWeekEnding
+    }
+
+    let promise = axios.put('http://localhost:8080/paper-chasers/api/update-timesheet', newTimesheet)
+    promise.then(function(response){
+        // 4. On successful PUT reupdate the row to show correct values along with edit, delete, submit buttons
+        console.log("The PUT request to update timesheet succeeded", response.data)
+        // 4.1 Remove inputs & update button
+        removeElement('newMondayHours' + saveButton.value)
+        removeElement('newTuesdayHours' + saveButton.value)
+        removeElement('newWednesdayHours' + saveButton.value)
+        removeElement('newThursdayHours' + saveButton.value)
+        removeElement('newFridayHours' + saveButton.value)
+        removeElement('newWeekEndingDate' + saveButton.value)
+        removeElement('saveButton' + saveButton.value)
+        console.log(response.data["monday_hours"], response.data["tuesday_hours"])
+
+    }) // End promise.then()
+    promise.catch(function(response){
+        console.log("The PUT request to update timesheet failed", response.data)
+    }) // End promise.catch()
 }
 
 function deleteTimesheet(deleteButton){

@@ -85,23 +85,36 @@ public class TimesheetController {
 		//System.out.println(ts.getTimesheet_ID());
 		ts = timesheetService.submitTimesheet(ts.getTimesheet_ID());
 		// Should use object mapper to send response back with ts
-		response.getWriter().println(new ObjectMapper().writeValueAsString(ts));
 		
 		if (ts != null) {
 			// send redirect 
 			System.out.println("timesheet wasn't null");
+			response.getWriter().println(new ObjectMapper().writeValueAsString(ts));
 		}
 		else {
 			// handle fail case
 			System.out.println("timesheet was null");
 		}
-		//response.sendRedirect("/paper-chasers/timesheetPortal.html");
 	} // End submitTimesheer()
 	
 	// Allows user to edit existing timesheet
-	public void updateTimesheet() {
-		// timesheetService.updateTimesheet(ts.getTimesheet_ID());
-	}
+	public void updateTimesheet() throws JsonParseException, JsonMappingException, IOException {
+		response.setContentType("application/json");
+		System.out.println("In updateTimesheet controller");
+		Timesheet ts = new ObjectMapper().readValue(request.getInputStream(), Timesheet.class);
+		ts = timesheetService.updateTimesheet(ts.getTimesheet_ID(), ts.getMonday_hours(), 
+				ts.getTuesday_hours(), ts.getWednesday_hours(), ts.getThursday_hours(), 
+				ts.getFriday_hours(), ts.getWeek_ending());
+		
+		if (ts != null) {
+			System.out.println("timesheet wasn't null");
+			response.getWriter().println(new ObjectMapper().writeValueAsString(ts));
+		}
+		else {
+			// handle fail case
+			System.out.println("timesheet was null in updateTimesheet()");
+		}
+	} // End updateTimesheet()
 	
 	
 	// Helper methods

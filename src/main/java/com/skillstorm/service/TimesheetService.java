@@ -23,7 +23,9 @@ public class TimesheetService {
 		return timesheetDAO.updateStatus(timesheetID);
 	}
 	
-	public Timesheet updateTimesheet(int timesheetID) {
-		return timesheetDAO.updateTimesheet(timesheetID);
+	public Timesheet updateTimesheet(int timesheetID, float mHours, float tHours, 
+			float wHours, float rHours, float fHours, String weekEnding) {
+		return timesheetDAO.updateTimesheet(timesheetID, mHours, tHours, wHours,
+				rHours, fHours, weekEnding);
 	}
 }

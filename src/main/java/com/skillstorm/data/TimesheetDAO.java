@@ -152,9 +152,43 @@ public class TimesheetDAO {
 		return ts;
 	}; // End updateStatus()
 	
-	public Timesheet updateTimesheet(int timesheetID) {
+	public Timesheet updateTimesheet(int timesheetID, float mHours, float tHours, 
+			float wHours, float rHours, float fHours, String weekEnding) {
 		
-		return;
+		new ConnectionFactory();
+		Connection conn = ConnectionFactory.getConnection();
+		Timesheet ts = null;
+		
+		try {
+			String sql = "update Timesheet set monday_hours=?, tuesday_hours=?, "
+					+ "wednesday_hours=?, thursday_hours=?, friday_hours=?, "
+					+ "week_ending=? where ID=?";
+			PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			stmt.setFloat(1, mHours);
+			stmt.setFloat(2, tHours);
+			stmt.setFloat(3, wHours);
+			stmt.setFloat(4, rHours);
+			stmt.setFloat(5, fHours);
+			stmt.setString(6, weekEnding);
+			stmt.setInt(7, timesheetID);
+			
+			stmt.executeUpdate();
+			//ResultSet keys = stmt.getGeneratedKeys();
+			// At this point update ts to be new timesheet with updated values.
+			// Create timesheet object based on values in keys
+			//System.out.println("Timesheet ID: " + keys.getInt(1));
+			ts = findTimesheetById(timesheetID);
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
+		return ts;
 	} // End updateTimesheet()
 	
 }
