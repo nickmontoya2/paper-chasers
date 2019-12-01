@@ -123,6 +123,15 @@ function appendTimesheet(timesheet) {
     let statusID = "statusElement" + timesheet.timesheet_ID
     status.setAttribute('id', statusID)
     
+    // Append everything into the new row
+    tr.appendChild(id);
+    tr.appendChild(monday);
+    tr.appendChild(tuesday);
+    tr.appendChild(wednesday);
+    tr.appendChild(thursday);
+    tr.appendChild(friday);
+    tr.appendChild(weekEnding);
+
     if (timesheet.status == 1) {
         status.innerText = "Saved"
         // Add buttons for edit, delete, submit here
@@ -134,7 +143,7 @@ function appendTimesheet(timesheet) {
         editButton.innerText = "Edit"
         let editID = "editButton" + timesheet.timesheet_ID
         editButton.setAttribute('id', editID)
-        status.appendChild(editButton)
+        // status.appendChild(editButton)
         // delete button
         let deleteButton = document.createElement('button')
         deleteButton.setAttribute('type', "button")
@@ -143,7 +152,7 @@ function appendTimesheet(timesheet) {
         deleteButton.innerText = "Delete"
         let deleteID = "deleteButton" + timesheet.timesheet_ID
         deleteButton.setAttribute('id', deleteID)
-        status.appendChild(deleteButton)
+        // status.appendChild(deleteButton)
         // submit button
         let submitButton = document.createElement('button')
         submitButton.setAttribute('type', "button")
@@ -152,22 +161,18 @@ function appendTimesheet(timesheet) {
         submitButton.innerText = "Submit Timesheet"
         let submitID = "submitButton" + timesheet.timesheet_ID
         submitButton.setAttribute('id', submitID)
-        status.appendChild(submitButton)
+        //status.appendChild(submitButton)
+        tr.appendChild(status);
+        tr.appendChild(editButton);
+        tr.appendChild(deleteButton);
+        tr.appendChild(submitButton);
 
     } else if (timesheet.status == 2) {
         // No need for edit, delete, submit buttons for this 
         status.innerText = "Submitted"
+        tr.appendChild(status);
     }
 
-    // Append everything into the new row
-    tr.appendChild(id);
-    tr.appendChild(monday);
-    tr.appendChild(tuesday);
-    tr.appendChild(wednesday);
-    tr.appendChild(thursday);
-    tr.appendChild(friday);
-    tr.appendChild(weekEnding);
-    tr.appendChild(status);
     // Append the new row into the table
     document.getElementById('timesheets').appendChild(tr)
 }
@@ -351,7 +356,7 @@ function updateTimesheet(saveButton){
         editButton.innerText = "Edit"
         let editID = "editButton" + currentTsId
         editButton.setAttribute('id', editID)
-        status.appendChild(editButton)
+
         // delete button
         let deleteButton = document.createElement('button')
         deleteButton.setAttribute('type', "button")
@@ -360,7 +365,7 @@ function updateTimesheet(saveButton){
         deleteButton.innerText = "Delete"
         let deleteID = "deleteButton" + currentTsId
         deleteButton.setAttribute('id', deleteID)
-        status.appendChild(deleteButton)
+        
         // submit button
         let submitButton = document.createElement('button')
         submitButton.setAttribute('type', "button")
@@ -369,8 +374,7 @@ function updateTimesheet(saveButton){
         submitButton.innerText = "Submit Timesheet"
         let submitID = "submitButton" + currentTsId
         submitButton.setAttribute('id', submitID)
-        status.appendChild(submitButton)
-
+        
         let currentRow = document.getElementById("timesheetRow" + currentTsId)
         currentRow.appendChild(monday)
         currentRow.appendChild(tuesday)
@@ -379,6 +383,9 @@ function updateTimesheet(saveButton){
         currentRow.appendChild(friday)
         currentRow.appendChild(weekEnding)
         currentRow.appendChild(status)
+        currentRow.appendChild(editButton)
+        currentRow.appendChild(deleteButton)
+        currentRow.appendChild(submitButton)
 
     }) // End promise.then()
     promise.catch(function(response){
