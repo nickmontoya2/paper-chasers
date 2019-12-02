@@ -34,23 +34,23 @@ document.getElementById('newTimesheetButton').addEventListener('click', function
     newForm.setAttribute('action', '/paper-chasers/api/saveTimesheet')
     // inputs
     let mHours = document.createElement('input')
-    mHours.setAttribute('type', "text")
+    mHours.setAttribute('type', "number")
     mHours.setAttribute('name', "monday_hours")
     mHours.setAttribute('placeholder', "Monday Hours")
     let tHours = document.createElement("input")
-    tHours.setAttribute('type', "text")
+    tHours.setAttribute('type', "number")
     tHours.setAttribute('name', "tuesday_hours")
     tHours.setAttribute('placeholder', "Tuesday Hours")
     let wHours = document.createElement("input")
-    wHours.setAttribute('type', "text")
+    wHours.setAttribute('type', "number")
     wHours.setAttribute('name', "wednesday_hours")
     wHours.setAttribute('placeholder', "Wednesday Hours")
     let rHours = document.createElement("input")
-    rHours.setAttribute('type', "text")
+    rHours.setAttribute('type', "number")
     rHours.setAttribute('name', "thursday_hours")
     rHours.setAttribute('placeholder', "Thursday Hours")
     let fHours = document.createElement("input")
-    fHours.setAttribute('type', "text")
+    fHours.setAttribute('type', "number")
     fHours.setAttribute('name', "friday_hours")
     fHours.setAttribute('placeholder', "Friday Hours")
     let weekEndingForm = document.createElement("input")
@@ -59,6 +59,7 @@ document.getElementById('newTimesheetButton').addEventListener('click', function
     weekEndingForm.setAttribute('placeholder', "Week Ending Date")
     let submit = document.createElement('input')
     submit.setAttribute('type', "submit")
+    submit.setAttribute('class', "btn btn-primary")
     submit.setAttribute('value', "Save Timesheet")
     // Put all inputs in the form
     newForm.appendChild(mHours)
@@ -140,6 +141,7 @@ function appendTimesheet(timesheet) {
         editButton.setAttribute('type', "button")
         editButton.setAttribute('value', timesheet.timesheet_ID)
         editButton.setAttribute('onclick', "editTimesheet(this)")
+        editButton.setAttribute('class', "btn btn-warning")
         editButton.innerText = "Edit"
         let editID = "editButton" + timesheet.timesheet_ID
         editButton.setAttribute('id', editID)
@@ -149,6 +151,7 @@ function appendTimesheet(timesheet) {
         deleteButton.setAttribute('type', "button")
         deleteButton.setAttribute('value', timesheet.timesheet_ID)
         deleteButton.setAttribute('onclick', "deleteTimesheet(this)")
+        deleteButton.setAttribute('class', "btn btn-danger")
         deleteButton.innerText = "Delete"
         let deleteID = "deleteButton" + timesheet.timesheet_ID
         deleteButton.setAttribute('id', deleteID)
@@ -158,6 +161,7 @@ function appendTimesheet(timesheet) {
         submitButton.setAttribute('type', "button")
         submitButton.setAttribute('value', timesheet.timesheet_ID)
         submitButton.setAttribute('onclick', "submitTimesheet(this)")
+        submitButton.setAttribute('class', "btn btn-success")
         submitButton.innerText = "Submit Timesheet"
         let submitID = "submitButton" + timesheet.timesheet_ID
         submitButton.setAttribute('id', submitID)
@@ -208,40 +212,45 @@ function editTimesheet(editButton){
     let mInput = document.createElement('td')
     mInput.setAttribute('id', 'mInput' + editButton.value)
     let mHoursInput = document.createElement('input')
-    mHoursInput.setAttribute('type', "text")
+    mHoursInput.setAttribute('type', "number")
     mHoursInput.setAttribute('value', mHours)
+    mHoursInput.setAttribute('class', "form-control")
     mHoursInput.setAttribute('id', 'newMondayHours' + editButton.value)
     mInput.appendChild(mHoursInput)
 
     let tInput = document.createElement('td')
     tInput.setAttribute('id', 'tInput' + editButton.value)
     let tHoursInput = document.createElement('input')
-    tHoursInput.setAttribute('type', "text")
+    tHoursInput.setAttribute('type', "number")
     tHoursInput.setAttribute('value', tHours)
+    tHoursInput.setAttribute('class', "form-control")
     tHoursInput.setAttribute('id', 'newTuesdayHours' + editButton.value)
     tInput.appendChild(tHoursInput)
 
     let wInput = document.createElement('td')
     wInput.setAttribute('id', 'wInput' + editButton.value)
     let wHoursInput = document.createElement('input')
-    wHoursInput.setAttribute('type', "text")
+    wHoursInput.setAttribute('type', "number")
     wHoursInput.setAttribute('value', wHours)
+    wHoursInput.setAttribute('class', "form-control")
     wHoursInput.setAttribute('id', 'newWednesdayHours' + editButton.value)
     wInput.appendChild(wHoursInput)
 
     let rInput = document.createElement('td')
     rInput.setAttribute('id', 'rInput' + editButton.value)
     let rHoursInput = document.createElement('input')
-    rHoursInput.setAttribute('type', "text")
+    rHoursInput.setAttribute('type', "number")
     rHoursInput.setAttribute('value', rHours)
+    rHoursInput.setAttribute('class', "form-control")
     rHoursInput.setAttribute('id', 'newThursdayHours' + editButton.value)
     rInput.appendChild(rHoursInput)
 
     let fInput = document.createElement('td')
     fInput.setAttribute('id', 'fInput' + editButton.value)
     let fHoursInput = document.createElement('input')
-    fHoursInput.setAttribute('type', "text")
+    fHoursInput.setAttribute('type', "number")
     fHoursInput.setAttribute('value', fHours)
+    fHoursInput.setAttribute('class', "form-control")
     fHoursInput.setAttribute('id', 'newFridayHours' + editButton.value)
     fInput.appendChild(fHoursInput)
 
@@ -250,6 +259,7 @@ function editTimesheet(editButton){
     let newWeekEnding = document.createElement('input')
     newWeekEnding.setAttribute('type', "text")
     newWeekEnding.setAttribute('value', currWeekEnding)
+    newWeekEnding.setAttribute('class', "form-control")
     newWeekEnding.setAttribute('id', 'newWeekEndingDate' + editButton.value)
     weekInput.appendChild(newWeekEnding)
 
@@ -259,6 +269,7 @@ function editTimesheet(editButton){
     saveButton.setAttribute('type', "button")
     saveButton.setAttribute('value', editButton.value)
     saveButton.setAttribute('onclick', "updateTimesheet(this)")
+    saveButton.setAttribute('class', "btn btn-primary")
     saveButton.innerText = "Update Timesheet"
     let saveID = "saveButton" + editButton.value
     saveButton.setAttribute('id', saveID)
@@ -353,6 +364,7 @@ function updateTimesheet(saveButton){
         editButton.setAttribute('type', "button")
         editButton.setAttribute('value', currentTsId)
         editButton.setAttribute('onclick', "editTimesheet(this)")
+        editButton.setAttribute('class', "btn btn-warning")
         editButton.innerText = "Edit"
         let editID = "editButton" + currentTsId
         editButton.setAttribute('id', editID)
@@ -362,6 +374,7 @@ function updateTimesheet(saveButton){
         deleteButton.setAttribute('type', "button")
         deleteButton.setAttribute('value', currentTsId)
         deleteButton.setAttribute('onclick', "deleteTimesheet(this)")
+        deleteButton.setAttribute('class', "btn btn-danger")
         deleteButton.innerText = "Delete"
         let deleteID = "deleteButton" + currentTsId
         deleteButton.setAttribute('id', deleteID)
@@ -371,6 +384,7 @@ function updateTimesheet(saveButton){
         submitButton.setAttribute('type', "button")
         submitButton.setAttribute('value', currentTsId)
         submitButton.setAttribute('onclick', "submitTimesheet(this)")
+        submitButton.setAttribute('class', "btn btn-success")
         submitButton.innerText = "Submit Timesheet"
         let submitID = "submitButton" + currentTsId
         submitButton.setAttribute('id', submitID)
