@@ -71,6 +71,7 @@ public class TimesheetController {
 		if (newTimesheet != null) {
 			// got assigned values 
 			response.sendRedirect("/paper-chasers/timesheetPortal.html");
+			response.setStatus(201);
 		} else {
 			// the values failed gg man
 			System.out.println("new timesheet was null in saveTimesheet()");
@@ -90,6 +91,7 @@ public class TimesheetController {
 			// send redirect 
 			System.out.println("timesheet wasn't null");
 			response.getWriter().println(new ObjectMapper().writeValueAsString(ts));
+			response.setStatus(204);
 		}
 		else {
 			// handle fail case
